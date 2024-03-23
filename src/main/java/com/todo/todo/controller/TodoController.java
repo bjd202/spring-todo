@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -40,11 +43,12 @@ public class TodoController {
 
     @PostMapping("/api/todo/create/test")
     public void createTestTodo(){
-        Random random = new Random();
         for (int i = 0; i < 100; i++) {
             Todo todo = new Todo();
             todo.setTitle("Todo " + (i + 1));
             todo.setContent("Content " + (i + 1));
+            todo.setStartDt(LocalDate.now());
+            todo.setEndDt(LocalDate.now().plusDays(2));
             todoRepository.save(todo);
         }
         System.out.println("Test data generated successfully.");
