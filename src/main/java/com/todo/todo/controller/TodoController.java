@@ -11,11 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
 
 @RestController
 public class TodoController {
@@ -53,5 +50,11 @@ public class TodoController {
             todoRepository.save(todo);
         }
         System.out.println("Test data generated successfully.");
+    }
+
+    @DeleteMapping("/api/todo/delete/{id}")
+    public ResponseEntity<String> deleteTodo(@PathVariable Long id){
+        todoRepository.deleteById(id);
+        return new ResponseEntity<>(new String("삭제 성공".getBytes(), StandardCharsets.UTF_8), HttpStatus.OK);
     }
 }
