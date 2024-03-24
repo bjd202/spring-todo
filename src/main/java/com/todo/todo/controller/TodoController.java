@@ -6,6 +6,7 @@ import com.todo.todo.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class TodoController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ){
-        return todoRepository.findAll(PageRequest.of(page, size));
+        return todoRepository.findAll(PageRequest.of(page, size, Sort.by("modifiedDate").descending()));
     }
 
     @PostMapping("/api/todo/create")
